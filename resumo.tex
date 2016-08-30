@@ -1,0 +1,70 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[portuguese]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{circuitikz}
+\begin{document}
+\section{Linhas de Transmissão}
+Para modelarmos uma linha de transmissão, podemos representá-la com um modelo simples utilizando modelos concentrados, em que representam a linha como 
+uma junção de vários circuitos em série em um comprimento $\delta Z$, assim como mostra a figura Figura~\ref{circ:1}.
+\begin{figure}[htpb]
+  \centering
+  \begin{circuitikz}
+    \draw(0,0)
+    to[short] (1,0)
+    to[R=$G\Delta z$](1,-3)
+    to[short] (0,-3);
+    \draw(1,0)
+    to[short](2,0)
+    node[label={[font=\footnotesize]above:A}]{}
+    to[short,*-](3,0)
+    to[C=$C \Delta z$](3,-3)
+    to[short,-*](2,-3)
+    to[short](1,-3);
+    \draw(3,0)
+    to[R=$R \Delta z$,i>^=$i_{(z,t)}$](5,0)
+    to[short](5.5,0)
+    to[L=$L \Delta z$](6.5,0)
+    to[short](7,0)
+    to[R=$G \Delta z$,i>^=$i_{G}$](7,-3)
+    to[short](2,-3);
+    \draw(6.5,0)
+    to[short](7,0)
+    to[short,-*](8,0)
+    node[label={[font=\footnotesize]above:B}]{}
+    to[short](9,0)
+    to[short,i>^=$i_{z+\Delta z,t}$](10,0)
+    ;
+    \draw(9,0)
+    to[C=$C \Delta z$,i>^=$i_{c}$](9,-3)
+    to[short,-*](8,-3)
+    to[short](7,-3) 
+    ;
+    \draw(9,-3)
+    to[short](10,-3);
+  \end{circuitikz}
+
+  \caption{Circuito equivalente a linha de transmissão no pedaço de linha de comprimento $\Delta z$ com $R \Delta z$ representado as perdas do condutor em Ohms,  a condutância $G \Delta z$ representado as perdas do dielétrico em siemens, a indutância $L \Delta z$ do condutor em henrys e a capacitância $C \Delta z$ em farads.}
+  \label{circ:1}
+\end{figure}
+Aplicando a lei de kirchoff das tensões no trecho $\Delta z$, obteremos:
+\begin{align*}
+  \label{eq:1}
+  v(z,t)=i(z,t)R\Delta Z+\frac{\partial i (z,t)}{\partial t}L\Delta z+v(z+\Delta z,t)
+\end{align*}
+Dividino por $\Delta z$ e rearrajando:
+\begin{align*}
+  -  \frac{ v(z+\Delta,t)-v(z,t) }{\Delta z} = Ri(z,t)+L \frac{\partial i(z,t)}{\partial t}
+\end{align*}
+Mas sabemos que:
+\begin{align*}
+  \lim_{\Delta z \to 0}  \frac{ v(z+\Delta,t)-v(z,t) }{\Delta z}=\frac{\partial v(z,t)}{\partial z}
+\end{align*}
+Logo:
+\begin{align*}
+  -\frac{\partial v(z,t)}{\partial z}=Ri(z,t)+L\frac{\partial i(z,t)}{\partial t}
+\end{align*}
+\end{document}
