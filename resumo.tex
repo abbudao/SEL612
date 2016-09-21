@@ -9,7 +9,7 @@
 \begin{document}
 \section{Linhas de Transmissão}
 Para modelarmos uma linha de transmissão, podemos representá-la com um modelo simples utilizando modelos concentrados, em que representam a linha como 
-uma junção de vários circuitos em série em um comprimento $\delta Z$, assim como mostra a figura Figura~\ref{circ:1}.
+uma junção de vários circuitos em série em um comprimento $\Delta Z$, assim como mostra a figura Figura~\ref{circ:1}.
 \begin{figure}[htpb]
   \centering
   \begin{circuitikz}
@@ -50,9 +50,9 @@ uma junção de vários circuitos em série em um comprimento $\delta Z$, assim 
   \caption{Circuito equivalente a linha de transmissão no pedaço de linha de comprimento $\Delta z$ com $R \Delta z$ representado as perdas do condutor em Ohms,  a condutância $G \Delta z$ representado as perdas do dielétrico em siemens, a indutância $L \Delta z$ do condutor em henrys e a capacitância $C \Delta z$ em farads.}
   \label{circ:1}
 \end{figure}
+
 Aplicando a lei de kirchoff das tensões no trecho $\Delta z$, obteremos:
 \begin{align*}
-  \label{eq:1}
   v(z,t)=i(z,t)R\Delta Z+\frac{\partial i (z,t)}{\partial t}L\Delta z+v(z+\Delta z,t)
 \end{align*}
 Dividino por $\Delta z$ e rearrajando:
@@ -64,7 +64,62 @@ Mas sabemos que:
   \lim_{\Delta z \to 0}  \frac{ v(z+\Delta,t)-v(z,t) }{\Delta z}=\frac{\partial v(z,t)}{\partial z}
 \end{align*}
 Logo:
-\begin{align*}
+\begin{align}
+  \label{eq:1}
   -\frac{\partial v(z,t)}{\partial z}=Ri(z,t)+L\frac{\partial i(z,t)}{\partial t}
+\end{align}
+\begin{figure}[hptb]
+  \centering
+  \begin{circuitikz}
+    \draw(0,0)
+    to[short,i>^=$i_{z,t}$,-*](2,0)
+    node[label={[font=\footnotesize]above:B}]{}
+    to[short,i>^=$i_{z+\Delta z,t}$](4,0)
+    ;
+    \draw(2,0)
+    to[short,i>=$i_{G}_{(z+\Delta z,t)}+i_{C}_{(z+ \Delta z,t)}$](2,-2)
+    ;
+  \end{circuitikz}
+  \caption{Correntes entrando e saindo o nó \emph{B}}
+  \label{circ:2}
+\end{figure}
+Vamos agora determinar a outra equação equivalente a Equação~\ref{eq:1}, fazendo uso da equação de Kirchhoff nos nós da ponto \emph{B}.
+
+\begin{align*}
+  i(z,t) =i_{G}(z+\Delta z,t)+i_{C}(z+\Delta z,t)+i(z+\Delta z,t)
 \end{align*}
+Mas sabemos que:
+\begin{align*}
+  i_{G} (z+\Delta Z,t) &=v(z+ \Delta z,t)G \Delta Z \\
+  i_{C}(z+ \Delta z,t) &= \frac{\partial v(z+ \Delta z,t)}{\partial t}C \Delta z
+\end{align*}
+
+Que substituindo resulta em:
+\begin{align*}
+  i(z,t) &= v(z+\Delta z, t)G\Delta z + \frac{\partial v(z+\Delta z,t)}{\partial t} C \Delta z + i(z+ \Delta z, t)
+\end{align*}
+Reescrevendo e divindo por $\Delta z$, 
+\begin{align*}
+  -\frac{i(z+\Delta z,t)-i(z,t)}{\Delta z} &= v(z+\Delta z, t)G + \frac{\partial v(z+\Delta z, t)}{\partial t}C
+\end{align*}
+Observar que:
+\begin{equation*}
+\lim_{ \Delta z \to 0} \left[ \frac{i(z+\Delta z,t) -i(z,t)}{\Delta z} \right] = \frac{ \partial i(z,t)}{\partial z}
+\end{equation*}
+Se temos que,
+\begin{equation*}
+  v(z+ \Delta z)  = v(z)+ \frac{\partial v (z)}{\partial z}\Delta z
+\end{equation*}
+Podemos concluir que:
+\begin{align*}
+  \frac{i(z+\Delta z,t) -i(z,t)}{\Delta z} &= v(z+\Delta z, t)G + \frac{\partial v(z+\Delta z,t)}{\partial t}C\\
+  &= G \left[v(z,t) + \frac{\partial v(z,t)}{\partial z} \Delta z \right]+ C \left[ \frac{\partial v(z,t)}{\partial t} + \frac{\partial^2 v(z,t)}{\partial t \partial z}\Delta z \right] \\
+  &= \left( G+C \frac{\partial}{\partial t}\right) \left[ v(z,t)+ \frac{ \partial v (z,t) }{\partial z} \Delta z \right]
+\end{align*}
+Que para $\Delta z \to 0$ se torna:
+\begin{equation}
+  -\frac{\partial i(z,t)}{\partial z} = Gv(z,t)+ C \frac{\partial v(z,t)}{\partial t}
+\end{equation}
+Dessa forma obtivemos as duas equações fundamentais da linha de transmissão
+
 \end{document}
