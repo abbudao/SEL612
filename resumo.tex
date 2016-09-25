@@ -8,6 +8,7 @@
 \usepackage{circuitikz}
 \begin{document}
 \section{Linhas de Transmissão}
+\subsection{Modelagem da Linha de Transmissão}
 Para modelarmos uma linha de transmissão, podemos representá-la com um modelo simples utilizando modelos concentrados, em que representam a linha como 
 uma junção de vários circuitos em série em um comprimento $\Delta Z$, assim como mostra a figura Figura~\ref{circ:1}.
 \begin{figure}[htpb]
@@ -104,7 +105,7 @@ Reescrevendo e divindo por $\Delta z$,
 \end{align*}
 Observar que:
 \begin{equation*}
-\lim_{ \Delta z \to 0} \left[ \frac{i(z+\Delta z,t) -i(z,t)}{\Delta z} \right] = \frac{ \partial i(z,t)}{\partial z}
+  \lim_{ \Delta z \to 0} \left[ \frac{i(z+\Delta z,t) -i(z,t)}{\Delta z} \right] = \frac{ \partial i(z,t)}{\partial z}
 \end{equation*}
 Se temos que,
 \begin{equation*}
@@ -117,9 +118,286 @@ Podemos concluir que:
   &= \left( G+C \frac{\partial}{\partial t}\right) \left[ v(z,t)+ \frac{ \partial v (z,t) }{\partial z} \Delta z \right]
 \end{align*}
 Que para $\Delta z \to 0$ se torna:
-\begin{equation}
+\begin{align}
+  \label{eq:2}
   -\frac{\partial i(z,t)}{\partial z} = Gv(z,t)+ C \frac{\partial v(z,t)}{\partial t}
-\end{equation}
-Dessa forma obtivemos as duas equações fundamentais da linha de transmissão
+\end{align}
+Dessa forma obtivemos as duas equações fundamentais da linha de transmissão:
+\begin{align*}
+  -\frac{\partial v(z,t)}{\partial z} &= Ri(z,t)+L\frac{\partial i(z,t)}{\partial t} \tag{\ref{eq:1}}\\
+  -\frac{\partial i(z,t)}{\partial z} &= Gv(z,t)+ C \frac{\partial v(z,t)}{\partial t} \tag{\ref{eq:2}}
+\end{align*}
+Se derivamarmos (\ref{eq:1}) em relação a $z$ e (\ref{eq:2}) em relação a $t$,
+\begin{align}
+  -\frac{\partial^2 v(z,t)}{\partial z^2} &= R\frac{\partial i(z,t)}{\partial z}+L\frac{\partial^2 i(z,t)}{\partial t \partial z} \label{eq:3}\\
+  -\frac{\partial^2 i(z,t)}{\partial t \partial z} &= G\frac{\partial v(z,t)}{\partial t}+ C \frac{\partial^2 v(z,t)}{\partial t^2} \label{eq:4}
+\end{align}
+Substituindo (\ref{eq:4}) em (\ref{eq:3}):
+\begin{equation*}
+  \frac{\partial^2 v(z,t)}{\partial z^2} = R \frac{\partial i(z,t)}{\partial z} \frac{\partial v(z,t)}{\partial z} - LC \frac{\partial^2 v(z,t)}{\partial t^2}
+\end{equation*}
+Substituindo a equação (\ref{eq:2}) acima:
+\begin{align*}
+  - \frac{\partial^2 v(z,t)}{\partial  z^2} = R \left[ -Gv(z,t) -C \frac{\partial v(z,t)}{\partial t}  \right]- LG \frac{\partial v(z,t)}{\partial t} - LC \frac{\partial^2 v(z,t)}{\partial t^2}
+\end{align*}
+Assim temos a equação de onda sem perdas para a tensão:
+\begin{equation*}
+  \frac{\partial^2 v(z,t)}{\partial  z^2}= RGv(z,t) + (RC+LG) \frac{\partial v(z,t)}{\partial t} + LC \frac{\partial^2 v(z,t)}{\partial t^2}
+\end{equation*}
+E de forma análoga ao procedimento anterior, obtemos a equação de onda para a corrente:
+\begin{equation*}
+  \frac{\partial^2 i(z,t)}{\partial z^2}  = RGi(z,t) + (RC+LG) \frac{\partial i(z,t)}{\partial t}+ LC \frac{\partial^2 i(z,t)}{\partial t^2}
+\end{equation*}
+Para linhas sem perdas, temos $R=G=0$ o que nos traz:
+\begin{align*}
+  \frac{\partial^2 v(z,t)}{\partial  z^2}= LC \frac{\partial^2 v(z,t)}{\partial t^2} \\
+  \frac{\partial^2 i(z,t)}{\partial z^2}= LC \frac{\partial ^2 i(z,t)}{\partial t^2}
+\end{align*}
+\subsection{Soluções para a Equação de Onda}
+Nossa onda eletromagnética propaga em ambos os sentidos, logo, a função da tensão deve ser composta por duas funções, uma que caminha na direção positiva de $z$ e outra em sua direção negativa:
+\begin{equation*}
+  v(z,t) = v^+ \left[ t- \frac{z}{v_f}\right]+ v^- \left[ t+ \frac{z}{v_f}\right]
+\end{equation*}
+Onde:
+\begin{align*}
+  v^+ \left[ t- \frac{z}{v_f}\right] &\text{ representa a onda propagando na direção positiva de $z$}\\
+  v^- \left[ t+ \frac{z}{v_f}\right]  &\text{ representa a onda propagando na direção negativa de $z$ }\\
+  v_{f}=\frac{1}{\sqrt{LC}} &\text{ representa a velocidade de propagação da onda (a velocidade de fase)}
+\end{align*}
+Assim é possível mostrar que as soluções abaixo são soluções das equações de onda para tensão, em linhas de transmissão sem perdas:
+\begin{equation*}
+  v(z,t)= V^+_0 \cos \left[ \omega  \left( t- \frac{z}{v_f} \right) +\phi^+  \right]+ V^-_0 \cos \left[  \omega  \left( t+ \frac{z}{v_f}  \right) + \phi^+  \right]
+\end{equation*}
+Se adotarmos uma constante de propagação, $k_{z}$, como $k_{z}=\frac{ \omega }{v_{f}}$, obteremos:
+\begin{equation*}
+  v(z,t)= V^+_0 \cos \left[ \omega  \left( t- \frac{z}{v_f} \right) +\phi^+  \right]+ V^-_0 \cos \left[  \omega  \left( t+ \frac{z}{v_f}  \right) + \phi^+  \right]
+\end{equation*}
+Como sabemos que a frequência angular e amplitude são invariantes no domínio do tempo, podemos lembrar da fórmula de Euler:
+\begin{equation*}
+  e^{j \zeta} = \cos(\zeta)+ j \sin(\zeta)
+\end{equation*}
+E escrever:
+\begin{equation*}
+  A \cos( \omega t+ \phi) = Re \left\{ A e^{ \left[ j( \omega t+ \phi) \right] } \right\} Re \left\{ A e^{j \phi} e^{j \omega t} \right\}
+\end{equation*}
+Onde,
+\begin{align*}
+  A e^{\left(j \phi\right)}e^{ \left( j \omega t \right)} : &\text{ a função complexa instantanêa} \\
+  A e^{\left(j \phi\right)} : &\text{ a função fasorial}
+\end{align*}
 
+Assim, podemos nos recordamos do conceito de fasor, usado em circuitos elétricos, com o exemplo abaixo:
+\begin{align*}
+  v(t)=V_0 cos( \omega t) \\
+  v(t)= v_1 (t) + v_2 (t)
+\end{align*}
+\begin{figure}[htpb]
+  \centering
+  \begin{circuitikz}
+    \draw (0,0)
+    to[sV, v=$v(t)$](0,2)
+    to[short](1,2);
+    \draw (1,2) to[R,v^<=$v_1$] (2,2);
+    \draw(2,2)
+    to[short](3,2)
+    to[R,v^<=$v_2$](4,2)
+    to[short](5,2)
+    to[short](5,0)
+    to[short](0,0);
+  \end{circuitikz}
+  \caption{Circuito Exemplo}
+  \label{circ:3}
+\end{figure}
+Pela lei de Ohm podemos equacionar:
+\begin{equation*}
+  v(t)= R_1 i(t)+ R_2 i(t)= (R_1 + R_2 )i(t)
+\end{equation*}
+\begin{equation*}V_0 \cos (\omega t)= (R_1 + R_2)i(t)\end{equation*}
+\begin{equation*}  i(t)=\frac{V_0}{R_1 R_2}\cos(\omega t)\end{equation*}
+\begin{equation*}
+  I= \frac{V_0}{R_1+R_2}\mathbf{fasor}
+\end{equation*}
+Como temos:
+\begin{align*}
+  v^+ (z,t) &= V_0^+ \cos( \omega t -kz + \phi^+ ) \\
+  v^+ (z,t) &= Re \left\{V_0^+ \left[\cos( \omega t -kz + \phi^+ )+ j \sin (wt-kz + \phi^+) \right]   \right\} \\
+  v^+ (z,t) &= Re \left\{ V_o^+ e^{ \left[ j \left( \omega - kz + \phi^+ \right) \right]} \right\}\\
+  v^+ (z,t) &= Re \left\{ V_o^+ e^{\phi^+}  e^{-jkz}  e^{j \omega t} \right\}
+\end{align*}
+Temos a tensão instantanêa real como:
+\begin{equation*}
+  \mathcal{V}(z,t) = V_0 \cos (\omega t - kz + \phi)
+\end{equation*}
+Tensão complexa instantanêa:
+\begin{equation*}
+  V(z,t)= V_0 e^{j \phi} e^{-jkz} e^{jwt}
+\end{equation*}
+E a tensão fasorial:
+\begin{equation*}
+  V(z)  = V_0 e^{j \phi} e^ {-jkz}
+\end{equation*}
+Lembremos então da equação de onda e excitação senoidal:
+\begin{align*}  
+  v^+ = (z,t) &= Re \left\{ A e^{ \left[ j( \omega t+ \phi) \right] } \right\} Re \left\{ A e^{j \phi} e^{j \omega t} \right\}\\
+  &= Re \left\{ V^+(z) e^{j \omega t} \right\}
+\end{align*}
+A derivada temporal se tornará então:
+\begin{align*}
+  \frac{\partial}{\partial t}e^{j \omega t} = jw e^{j \omega t}
+\end{align*}
+E a derivada espacial:
+\begin{align*}
+  \frac{\partial}{\partial z} e^{-jk_z z} = -jk_z e^{-j k_z z}
+\end{align*}
+Ou seja, uma derivada temporal no domínio da frequência equivale a:
+\begin{align*}
+  \frac{\partial}{\partial t} \Leftrightarrow j \omega
+\end{align*}
+E uma derivada espacial equivale a:
+\begin{align*}
+  \frac{\partial}{\partial z} \Leftrightarrow -j k_z
+\end{align*}
+Com esse conhecimento, podemos transformar nossa equação de onda para a tensão:
+\begin{align*}
+  \frac{\partial^2 v(z,t) }{\partial z^2} = RG v(z,t) + (RC+LG) \frac{\partial v(z,t)}{\partial t} + LC \frac{\partial^2 v(z,t)}{\partial t^2}
+\end{align*}
+Em:
+\begin{align}
+  \frac{\partial^2 V(z)}{\partial z^2} = \left[ \left( RG - \omega^2 LC \right) + j \omega (RC+LG)  \right]V(Z) \label{eq:5}
+\end{align}
+E analogamente, a de corrente:
+\begin{align*}
+  \frac{\partial^2 i(z,t)}{\partial z^2} = RGi(z,t) + (RC+LG) \frac{\partial i(z,t)}{\partial t}+ LC \frac{\partial^2 i(z,t)}{\partial t^2}
+\end{align*}
+Em:
+\begin{align}
+  \frac{\partial^2 I(Z)}{\partial z^2}= \left[ \left( RG - \omega^2 LC \right) + j\omega (RC+LG) \right]I(z) \label{eq:6}
+\end{align}
+\subsection{Impedância e Admitância}
+\begin{align*}
+  \frac{\partial^2 v(z,t) }{\partial z^2} &= RG v(z,t) + (RC+LG) \frac{\partial v(z,t)}{\partial t} + LC \frac{\partial^2 v(z,t)}{\partial t^2} \quad \quad \text{Tensão}\\
+  \frac{\partial^2 i(z,t)}{\partial z^2} &= RGi(z,t) + (RC+LG) \frac{\partial i(z,t)}{\partial t}+ LC \frac{\partial^2 i(z,t)}{\partial t^2} \quad \text{Corrente}
+\end{align*}
+Se temos:
+\begin{align*}
+  Z &= R+ j\omega L \quad \text{Impedância ($\Omega /m$ - Ohms$/m$)} \\
+  Y &= G+ j \omega C \quad \text{Admitância ($S/m$ - Siemens$/m$)} 
+\end{align*}
+Então,
+\begin{align*}
+  ZY = (RG - \omega^2 LC) + j \omega (RC+LG)
+\end{align*}
+Onde:
+\begin{align*}
+  Z= R+j\omega L \quad \text{Impedância (por u.c.)} \\
+  Y= G+j\omega C \quad \text{Admitância (por u.c.)} 
+\end{align*}
+\subsection{Constante de Propagação}
+A constante de propagação é dada por:
+\begin{align*}
+  \gamma = \sqrt{ZY} = \alpha + j \beta
+\end{align*}
+Em que,
+\begin{align*}
+  \alpha  \to & \quad \text{constante de atenuação; neper/unidade de comprimento} \\
+  \beta \to & \quad \text{constante de fase; radiano/unidade de comprimento} \\
+\end{align*}
+Em uma linha sem perdas, temos:
+\begin{align*}
+  ZY &= -\omega^2 LC\\
+  \gamma = \sqrt{ZY} &=j \beta = j \omega \sqrt{LC}\\
+  \alpha &= 0
+\end{align*}
+Podemos então relacionar,
+\begin{align*}
+  \gamma &= \sqrt{ZY} \\
+   \gamma^2 &= ZY \\
+   ZY = (RG - \omega^2 LC)+ j \omega (RC + LG)
+\end{align*}
+E substituir em:
+\begin{align*}
+  \frac{\partial^2 V(z)}{\partial z^2} = \left[ (RG - \omega^2 LC) + j \omega (RC+LG) \right]V(z) 
+\end{align*}
+Transformando em:
+\begin{align*}
+\frac{\partial^2 V(z)}{\partial z^2}= \gamma^2 V(z)
+\end{align*}
+E de forma análoga para a corrente:
+\begin{align*}
+  \frac{\partial^2 I(z)}{\partial z^2} &= \left[ (RG - \omega^2 LC) + j \omega (RC+LG) \right]I(z) \\
+\frac{\partial^2 I(z)}{\partial z^2} &= \gamma^2 I(z)
+\end{align*}
+Podemos ainda relacionar a impedância com as equações (\ref{eq:5}) e (\ref{eq:6}),
+\begin{align*}
+  \begin{cases}
+    - \frac{\partial v(z,t)}{\partial z}  = Ri(z,t) + L \frac{\partial i(z,t)}{\partial t} \\
+    - \frac{\partial i(z,t)}{\partial  z} = G v(z,t) + C \frac{\partial v(z,t)}{\partial t}
+  \end{cases}   
+\end{align*}
+Sabemos que $ \frac{\partial }{\partial t} e^{j \omega t}= j \omega e^{j \omega t}$:
+\begin{align*}
+  \begin{cases}
+   -\frac{\partial V(z)}{\partial z}  = RI (z) + j \omega LI (z) = (R + j \omega L) I(Z) \\
+   - \frac{\partial I(z)}{\partial z} = GC (z) + j \omega CV (z) = (G + j \omega C) V(z)
+  \end{cases}
+\end{align*}
+O que nos dá:
+\begin{align*}
+  \frac{\partial V(z)}{\partial z} = - ZI(z) \\
+  \frac{\partial I(z)}{\partial z} = -YV(z)
+\end{align*}
+\subsection{Resumo das equações fundamentais dee uma L.T}
+\begin{table}[htpb]
+  \centering
+  \label{tab:1}
+  \begin{tabular}{c c c}
+    \toprule
+    &  V(z)& I(z)  \\ \midrule
+       $\frac{\partial}{\partial z}$ & $-YV(z)$ & $-ZI(z)$\\ \midrule
+       $\frac{\partial^2 }{\partial z^2 }$ & $\gamma^2 V(z)$ & $\gamma^2 I(z)$ \\ \bottomrule
+  \end{tabular}
+  \caption{Resumo das equações fundamentais}
+\end{table}
+
+Em que:
+  \begin{align*}
+  Z &= R + j \omega L \\
+  Y &= G + j \omega C \\
+  ZY &= (RG- \omega^2 LC) + j \omega (RC+LG) \\
+  \gamma^2 &= ZY
+  \end{align*}
+  \subsection{Soluções das equações de onda}
+  Assim definimos que a solução de onda para a tensão:
+  \begin{align*}
+    \frac{\partial^2 V(z)}{\partial z^2} - \gamma^2 V(z) =0 
+  \end{align*} 
+  É da forma:
+  \begin{align*}
+  V(z)= V^+ e^{- \gamma z} + V^- e^{+\gamma z}
+  \end{align*}
+  Em que $V^+$ e $V^-$ são constantes a serem determinadas.
+  
+  Se lembrarmos que:
+  \begin{align*}
+    \frac{\partial V(z)}{\partial z} = -Z I(z)
+  \end{align*}
+  Podemos escrever:
+  \begin{align*}
+    I(z) = \frac{\gamma}{Z} (V^+ e^{-\gamma z} - V^- e^{-\gamma z})
+  \end{align*}
+  Em que $I^+ = \frac{\gamma }{Z} V^+$ e $I^- = \frac{\gamma}{Z}V^-$ também são constantes a determinadas, pela equação da corrente ou através das constantes $V^+$ e $V^-$. Ainda podemos fazer uma análise dimensional em:
+  \begin{align*}
+    \frac{\gamma}{Z} = \frac{\sqrt{ZY}}{Z}= \sqrt{\frac{ZY}{Z^2}}= \sqrt{\frac{Y}{Z}} 
+  \end{align*}
+ O que nos dá:
+ \begin{align*}
+   \left[ \frac{\gamma}{Z} \right]= \text{ohm}^{-1}
+ \end{align*}
+ Que é o que esperamos pela Lei de Ohm.
+
+ Em resumo temos:
+ \begin{align*}
+ V(z)= V^+ e^{- \gamma z}  + V^- e^{\gamma z} \\
+I(z)= I^+ e^{- \gamma z}  - I^- e^{\gamma z} \\
+ \end{align*}
 \end{document}

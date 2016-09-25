@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Arch Linux) (preloaded format=pdflatex 2016.8.29)  19 SEP 2016 18:49
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Arch Linux) (preloaded format=pdflatex 2016.8.29)  25 SEP 2016 12:24
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -721,49 +721,54 @@ Package grfext Info: Graphics extension search list:
 (/usr/share/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
-LaTeX Font Info:    Try loading font information for U+msa on input line 12.
+LaTeX Font Info:    Try loading font information for U+msa on input line 13.
 (/usr/share/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 12.
+LaTeX Font Info:    Try loading font information for U+msb on input line 13.
 (/usr/share/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-./resumo.tex:80: Double subscript.
+./resumo.tex:81: Double subscript.
 \pgfk@/tikz/circuitikz/bipole/current/label/name ...
                                                   {(z+\Delta z,t)}+i_{C}_{(z...
-l.80 ...elta z,t)}+i_{C}_{(z+ \Delta z,t)}$](2,-2)
+l.81 ...elta z,t)}+i_{C}_{(z+ \Delta z,t)}$](2,-2)
                                                   
 I treat `x_1_2' essentially like `x_1{}_2'.
 
-./resumo.tex:80: Double subscript.
+./resumo.tex:81: Double subscript.
 \pgfk@/tikz/circuitikz/bipole/current/label/name ...
                                                   {(z+ \Delta z,t)}$
-l.80 ...elta z,t)}+i_{C}_{(z+ \Delta z,t)}$](2,-2)
+l.81 ...elta z,t)}+i_{C}_{(z+ \Delta z,t)}$](2,-2)
                                                   
 I treat `x_1_2' essentially like `x_1{}_2'.
 
 [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-Overfull \hbox (11.02905pt too wide) in paragraph at lines 118--118
+Overfull \hbox (11.02905pt too wide) in paragraph at lines 119--119
 [] 
  []
 
-[2] (./resumo.aux) ) 
+[2]
+Overfull \hbox (33.32716pt too wide) in paragraph at lines 166--166
+[] 
+ []
+
+[3] [4] [5] [6] [7] [8] [9] (./resumo.aux) ) 
 Here is how much of TeX's memory you used:
- 20360 strings out of 493013
- 466831 string characters out of 6139317
- 623758 words of memory out of 5000000
- 23592 multiletter control sequences out of 15000+600000
- 9538 words of font info for 36 fonts, out of 8000000 for 9000
+ 20589 strings out of 493013
+ 471948 string characters out of 6139317
+ 623938 words of memory out of 5000000
+ 23815 multiletter control sequences out of 15000+600000
+ 12026 words of font info for 45 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 62i,9n,56p,480b,837s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on resumo.pdf (2 pages, 99745 bytes).
+ 62i,14n,56p,480b,837s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb>
+Output written on resumo.pdf (9 pages, 157252 bytes).
 PDF statistics:
- 54 PDF objects out of 1000 (max. 8388607)
- 39 compressed objects within 1 object stream
+ 89 PDF objects out of 1000 (max. 8388607)
+ 64 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 
