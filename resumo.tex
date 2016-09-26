@@ -2,6 +2,7 @@
 \usepackage[portuguese]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
+\usepackage{amssymb}
 \usepackage{amsfonts}
 \usepackage{enumitem}
 \usepackage{booktabs}
@@ -400,4 +401,111 @@ Em que:
  V(z)= V^+ e^{- \gamma z}  + V^- e^{\gamma z} \\
 I(z)= I^+ e^{- \gamma z}  - I^- e^{\gamma z} \\
  \end{align*}
+ \subsection{Conceito de Perturbação}
+ \begin{itemize}
+   \item Uma perturbação move-se a partir de uma fonte ao longo do tmepo
+   \item O meio pode não apresentar movimento na direção de propagação
+   \item Propagação de onda eletromagnética
+     \begin{itemize}
+       \item Não é necessário meio físico
+       \item Há propagação no vácuo
+     \end{itemize}
+   \item Tipos de ondas
+     \begin{itemize}
+       \item Ondas Mecânicas
+       \item Ondas Eletromagnêticas 
+     \end{itemize}
+ \end{itemize}
+\begin{figure}[htpb]
+\centering
+\begin{circuitikz}
+  \draw(0,0) 
+  to[C](0,2)
+  to[L](2,2)
+  to[C](2,0)
+  to[short](0,0);
+  \draw(2,2)
+  to[L](4,2)
+  to[C](4,0)
+  to[short](2,0);
+  \draw(0,0)
+  to[short](-1,0);
+  \draw(0,2)
+  to[short](-1,2);
+  \draw(4,0)
+  to[short](5,0);
+  \draw(4,2)
+  to[short](5,2);
+  \draw(1,1)
+  node[scale=2.5]{$\circlearrowright$} ;
+  \draw(1,1)
+  node{$i_L$};
+  \draw(3,1)
+  node{$v_L$};
+  \draw(2.5,1.4)
+  node{$+$};
+  \draw(2.5,0.6)
+  node{$-$};
+\end{circuitikz}
+\end{figure}
+O que se move com velocidade $v$?
+\begin{itemize}
+  \item À medida que o tempo passa, a corrente no primeiro indutor carrega o capitor seguinte
+  \item A variação da tensão no capacitor provoca a variação da corrente no indutor seguinte
+  \item Resultado:
+    \begin{itemize}
+      \item A perturbação elétrica se propaga com velocidade $v_f$ ao longo da linha de transmissão
+    \end{itemize}
+\end{itemize}
+O que acontece quando andamos um comprimento de onda na linha de transmissão?
+\begin{align*}
+  v^+(z,t)= V^+ \cos( \omega t - \beta z ) = V^+ \cos (\beta z - wt) \\
+  v^+ (z+ \lambda, t) = V^+ \cos( \beta z + \beta \lambda- \omega t )= V^+ \cos ( \beta z - \omega t + 2\pi )= V^+ \cos(\beta z - \omega t)
+\end{align*}
+Assim temos:
+\begin{align*}
+  \beta \lambda= 2 \pi \\
+  \beta = \frac{2\pi}{\lambda}
+\end{align*}
+Onde $\beta$ é a constante de fase dada em $[rad/$unid.comprimento$]$ ou $[$unid.comprimento$]^{-1}$.
+
+\subsection{Constante de propagação e atenuação}
+Se temos uma linha com perdas, existe uma atenuanção da tensão/corrente ao longo do eixo $z$;
+\begin{align*}
+  V^+ (z) = V^+ e^{-\gamma z} = V^+ e^{-(\alpha +j\beta)z}\\
+  V^+ (z) = V^+ e^{-\alpha z} e^{-j \beta z}\\
+  v^+ (z,t) = V^+ e^{-\alpha z} cos(wt -\beta z)
+\end{align*}
+Onde:
+\begin{align*}
+  \alpha& \text{: constante de atenuanção: [neper/metro] ou [dB/metro]}\\ 
+  \beta&\text{: constante de fase :}[rad/\text{metro] ou }m^-1  \\
+  V^+ e^{-\alpha z}&\text{: indica uma amplitude decrescendo exponencialmente}
+\end{align*}
+\subsection{Linha de transmissão sem perdas}
+Se lembrarmos que $\gamma = ZY$, podemos dizer:
+\begin{align*}
+\frac{ \gamma }{Z} = \sqrt{ \frac{Y}{Z}} =\sqrt{\frac{G+ j \omega C}{R+ j \omega L}}= \sqrt{\frac{j \omega C}{j \omega L}}= \sqrt{\frac{C}{L}}
+\end{align*}
+Invertendo a equação anterior, encontramos a impedância característica, $Z_0$ da linha:
+\begin{equation*}
+  Z_0= \sqrt{ \frac{R+j \omega L}{G+ j \omega C} } =\sqrt{ \frac{L}{C} } \text{[ohm]}
+\end{equation*}
+De $\gamma$:
+\begin{align*}
+  \gamma & = \sqrt{ZY} = \sqrt{(R + j \omega L)(G + j \omega C)} 
+\end{align*}
+Em uma linha sem perdas, $R=G=0$:
+\begin{align*}
+  \gamma &= \sqrt{(j \omega L)(j \omega C)}=\sqrt{-\omega^2 LC}=j\omega \sqrt{LC} = j \beta \\
+  \beta &= \omega \sqrt{LC} = \frac{\omega}{V_{fase}} \quad [m^{-1}]
+\end{align*}
+Então em uma linha de transmissão sem perdas temos:
+\begin{align*}
+V(z)= V^+ e^{-j \beta z} + V^- e^{+j \beta z} \\
+I(z)= \frac{V^+}{Z_0} e^{-j \beta z} - \frac{V^-}{Z_0} e^{+j \beta z}
+\end{align*}
+Podemos aproximar linhas, que operam em frequências maiores que $100kHz$,  em que $\omega L \gg R$ e  $\omega C \gg G$  como linhas sem perdas em que $Z_{0,af} \equiv Z_0 \simeq \sqrt{\frac{L}{C}}$. E linhas operando em frequências de aproximadente 1 $kHz$ em que $\omega L \ll R$ e $ \omega C \ll G$ como puramente resistivas, assim temos $z_{0,bf} \simeq \sqrt{\frac{R}{G}}$.
+
+
 \end{document}
