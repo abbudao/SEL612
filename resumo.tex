@@ -7,6 +7,7 @@
 \usepackage{enumitem}
 \usepackage{booktabs}
 \usepackage{circuitikz}
+% TODO Trocar alguns \tau_0  por \Gamma
 \begin{document}
 \section{Linhas de Transmissão}
 \subsection{Modelagem da Linha de Transmissão}
@@ -507,5 +508,166 @@ I(z)= \frac{V^+}{Z_0} e^{-j \beta z} - \frac{V^-}{Z_0} e^{+j \beta z}
 \end{align*}
 Podemos aproximar linhas, que operam em frequências maiores que $100kHz$,  em que $\omega L \gg R$ e  $\omega C \gg G$  como linhas sem perdas em que $Z_{0,af} \equiv Z_0 \simeq \sqrt{\frac{L}{C}}$. E linhas operando em frequências de aproximadente 1 $kHz$ em que $\omega L \ll R$ e $ \omega C \ll G$ como puramente resistivas, assim temos $z_{0,bf} \simeq \sqrt{\frac{R}{G}}$.
 
-
+\subsection{Coeficiente de Reflexão}
+\begin{align*}
+  \tau (z) = \frac{V^-(z)}{v^+ (z)} = (\frac{V^-}{V^+})\frac{e^{\gamma z}}{e^{-\gamma z}} = \Gamma_0 \frac{e^{\gamma z}}{e^{-\gamma z}}= \Gamma_0 e^{2 \gamma z}
+\end{align*}
+Coeficiente de reflexão na carga, em $z=0$ ($z<0$ em direção ao gerador):
+\begin{align*}
+  \tau(z=0)= \frac{V^-}{V^+}\equiv \Gamma_0 = |\Gamma_0| e^{j \phi_r}\\
+  \tau (z) = | \Gamma_0 | e^{2 \gamma z + j \phi_r}
+\end{align*}
+Para o caso sem perdas, isto é, $R=G=0$, $\gamma = j \beta$:
+\begin{align*}
+  \tau(z) = | \Gamma_0| e^{\left[j(2\beta z + \phi_r) \right]}
+\end{align*}
+\subsection{Impedância ao Longo de Linha sem perdas}
+\begin{align*}
+  Z(z)= \frac{V(z)}{I(z)}= \frac{V^+ (z) + V^- (z)}{I^+ (z) - I^- (z)}= Z_0 \frac{V^+ e^{-j\beta z} + V^- e^{j \beta z}}{V^+ e^{-j \beta z} - V^- e^{j \beta z}}\\
+  Z(z)=Z_0 \frac{e^{-j \beta z} + (V^- / V^+) e^{j \beta z}}{e^{-j \beta z} - (V^- / V^+) e^{j \beta z}}= Z_0 \frac{e^-{j \beta z} - (V^-/ V^+) e^{j \beta z}}{e^{-j \beta z} - (V^-/ V^+)e^{j\beta z}}= Z_0 \frac{e^{-j \beta z} + \Gamma_0 e^{+ j \beta z} }{e^{- j \beta z} - \Gamma_0 e^{j\beta z}}\\
+  Z(z)= Z_0 \frac{(\cos \beta z - j \sin \beta z)+ \Gamma_0(\cos \beta z + \sin \beta z)}{(\cos \beta z - j\sin \beta z)- \Gamma_0 (\cos \beta z + j \sin \beta z)}
+\end{align*}
+Dividindo por $\cos (\beta z)$ em ambos os lados:
+\begin{align*}
+  Z(z)= Z_0 \frac{( 1-j\tan \beta z )+ \Gamma_0 (1+ j \tan \beta z)}{(1- j \tan \beta z)-\Gamma_0 (1+j \tan \beta)}= Z_0 \frac{( 1+\Gamma_0 )+tau_0(1+j\tan \beta z)}{(1-j\tan \beta z)- \Gamma_0 (1+j\tan \beta z)}
+\end{align*}
+Dividindo por $(1-\Gamma_0)/(1+/tau_0)$,
+\begin{align*}
+  Z(z)=Z_0 \frac{ \left[ (1+\Gamma_0)/(1-\Gamma_0) \right]- j \tan (\beta z) }{1-j \left[ (1+\Gamma_0)/(1-\Gamma_0) \right] \tan(\beta z)}
+\end{align*}
+A expressão acima deve ser igual a impedância de carga em $z=0$, i.e.\,
+\begin{align*}
+  Z(z=0)= Z_0 \frac{1+\Gamma_0}{1-\Gamma_0}= Z_L
+\end{align*}
+De onde obtemos o coeficiente de reflexão na carga:
+\begin{align*}
+  \Gamma_0 = \frac{Z_L- Z_0}{Z_L + Z_0}
+\end{align*}
+Mas,
+\begin{align*}
+  \Gamma_0 = \frac{Z_l - Z_0}{Z_L + Z_0}
+\end{align*}
+E
+\begin{align*}
+  \frac{1+\Gamma_0}{1-\Gamma_0} = \frac{Z_L}{Z_0}
+\end{align*}
+Então:
+\begin{align*}
+  Z(z)= Z_0 \frac{Z_l - j Z_0 \tan (\beta z)}{Z_0 - j Z_L \tan(\beta z)} \quad z \leq 0
+\end{align*}
+\subsection{Funções Hiperbólicas: Algumas relações}
+\begin{align*}
+  \tanh (x \pm y) = \frac{\tanh (x) \pm \tanh y}{1 \pm \tanh x \tanh y}\\
+  \tanh (jx)= j \tan x \\
+  \tan (jx) = j \tanh x
+\end{align*}
+\subsection{Impedância ao Longo da linha com Perdas}
+\begin{align*}
+  Z(z)= \frac{V^+ (z) + V^- (z)}{I^+ (z) + I^- (z)}=Z_0 \frac{e^{-\gamma z}+\Gamma_0 e^{\gamma z}}{e^-{\gamma z}- \Gamma_0 e^{\gamma z}}
+\end{align*}
+Como $\sinh x= \frac{e^x - e^-x}{2}$ e $\cosh x = \frac{e^x + e^{-x}}{2}$, então, $e^{\pm kz}= \cosh (kz) \pm \sinh(kz)$, temos:
+\begin{align*}
+  Z(z)= Z_0 \frac{Z_L - Z_0 \tanh (\gamma z)}{Z_0 - Z_L \tanh(\gamma z)} \quad z \leq 0
+\end{align*}
+Com $\gamma = \alpha + j \beta$
+\subsection{Potência e Potência média na Linha de Transmissão}
+A potência instantanêa em qualquer ponto da linha de transmissão é dada por:
+\begin{align*}
+p(z,t) = v(z,t)i(z,t) \quad W
+\end{align*}
+A potência instantanêa transportada pela onda incidente é:
+\begin{align*}
+p^+ (z,t)= v^+ (z,t) i^+ (z,t) \quad W
+\end{align*}
+A potência transportada pela onda incidente é, portanto, 
+\begin{align*}
+  p_m^+ = \frac{1}{2} Re \left\{ V^+ (z) \left[ I^+ (z) \right]* \right\}\\
+  p_m^+ = \frac{1}{2} Re \left\{ \left| V^+(z)\right|^2 \right\}= \frac{1}{2 }\frac{ \left| V^+ \right|^2 }{z_0} \quad W
+\end{align*}
+Se a LT não possui perdas, a potência média entregue ao gerador, na entrada da linha, deve ser a mesma entregue pela linha à carga:
+\begin{align*}
+  (p_m)_i = (p_m)_L \to \frac{1}{2} Re \left\{ V(-l) I^*(-l) \right\}= \frac{1}{2} Re \left\{ V(0) I^*(0) \right\}
+\end{align*}
+\subsection{Impedância ao longo da linha}
+\begin{align*}
+  Z(z)= Z_0 \frac{Z_L - jZ_0 tan(\beta z)}{Z_0 - j Z_L \tan (\beta z)} \quad z \leq 0 
+\end{align*}
+Ou, com $\gamma = \alpha + j \beta$ 
+\begin{align*}
+  Z(z)= Z_0 \frac{Z_L - Z_0 \tanh(\gamma z)}{Z_0 - Z_L \tanh (\gamma z)} \quad z \leq 0
+\end{align*}
+\subsection{Terminação: Curto-circuito}
+Nesse caso, $Z_L = 0$.
+\begin{align*}
+  Z(z=-l)= Z_0 \frac{0+j Z_0 \tan \beta l}{Z_0 + j(0) \tan \beta l}= j Z_0 \tan(\beta L)\\
+  Z(z= -l)= j Z_0 \tan (\beta l)
+\end{align*}
+Normalizando:
+\begin{align*}
+  Z(z=-l)/(Z_0)= j \tan (\beta l) = jX
+\end{align*}
+\subsection{Terminação: Circuito Aberto}
+Nesse caso, $Z_L \to \infty$
+\begin{align*}
+  Z(z=-l) = Z_0 \frac{Z_L+ jZ_0 tan(\beta l)}{Z_0 + j\tan(\beta l)}= Z_0 \frac{1+j(Z_0/Z_l)\tan(\beta l)}{(Z_0/Z_L)+j \tan(\beta l)} = -j Z_0 \cot (\beta l)
+\end{align*}
+Normalizando:
+\begin{align*}
+  \frac{Z(z=-l)}{Z_0}= -j \cot (\beta l) = -j X
+\end{align*}
+\subsection{Onda Estacionária: Módulo}
+Lembremos a solução para a equação de onda:
+\begin{align*}
+V(z)= V^+ e^{-j \beta z} + V^- e^{j\beta z}
+\end{align*}
+Usando o valor do coeficiente de reflexão, $\Gamma_0= \frac{V^-}{V^+}$, podemos escrever:
+\begin{align*}
+  V(z)= V^+ (e^{-j \beta z}+ \Gamma_0 e^{j\beta z})
+\end{align*}
+Assim podemos escrever:
+\begin{align*}
+|V(z)|^2 &= V(z)V(z)^*\\
+&= \left[ V^+ \left( e^{-j\beta z} + \Gamma_0 e^{j\beta z} \right) \right] \left[ \left( V^+ \right)^* \left( e^{j\beta z} + \tau^*_0 e^{-j \beta z} \right) \right]\\
+&= V^+ \left( V^+ \right)^* \left( e^{- j \beta z} + \Gamma_0 e^{j \beta z} \right) \left( e^{j \beta z } + \Gamma^*_0 e^{-j\beta z} \right) \\
+&= \left| V^+ \right|^2 \left( 1+ \Gamma_0^* e^{-2j\beta z} + \Gamma_0 e^{j 2 \beta z} + \Gamma_0 \Gamma_0^* \right) \\
+&= \left| V^+ \right|^2 \left( 1+ \Gamma_0^* e^{-j2\beta z} + \Gamma_0 e^{j2\beta z} + \left| \Gamma_0 \right|^2 \right)
+\end{align*}
+Mas sabemos que:
+\begin{align*}
+  \Gamma_0 = \left| \Gamma_0 \right|e^{j \phi_r}
+\end{align*}
+E consequentemente:
+\begin{align*}
+  \Gamma_0^* e^{-j2\beta z} + \Gamma_0 e^{j 2 \beta z} = \left| \Gamma_0 \right| e^{- j \phi_r}e^{-j2\beta z} + \left| \Gamma_0 \right|e^{j \phi_r}e^{j\beta z}=\\  \left| \Gamma_0 \right| \left[ e^{-j \left( 2 \beta z + \phi_r \right)} + e^{j \left( 2\beta z + \phi_r \right)} \right] = 2 \left| \Gamma_0 \right| \cos \left( 2 \beta z + \phi_r \right) 
+\end{align*}\
+Assim concluímos que:
+\begin{align*}
+  \left| V(z) \right|^2 = \left| V^+ \right|^2 \left[ 1 + \left| \Gamma_0 \right|^2 + 2 \left| \Gamma_0 \right|\cos \left( 2\beta z + \phi_r \right) \right]
+\end{align*}
+Máximo ocorre para $\cos(2 \beta z + \phi_r)=1$:
+\begin{align*}
+  2 \beta z_max + \phi_r = 2 n \pi , \quad n=0,1,2,3 \ldots \\
+  \left| V(z) \right|^2_{max} = \left| V^+ \right|^2 \left( 1 + \left( \Gamma_0 \right)^2 + 2 \left| \Gamma_0 \right| \right)= \left| V^+ \right|^2 \left( 1 + \left| \Gamma_0 \right|^2 \right)
+\end{align*}
+Finalmente, obtemos:
+\begin{align*}
+  \left| V(z) \right|_{max} \equiv V_{max} = \left| V^+ \right| \left( 1+ \left| \Gamma_0 \right| \right)
+\end{align*}
+De forma análoga, o mínimo ocorre para $ \cos \left( 2 \beta z + \phi_r \right)= -1$:
+\begin{align*}
+  2 \beta z_{min} + \phi_r = \left( 2n +1 \right)\pi \quad , n=0,1,2,3 \ldots \\
+  \left| V(z) \right|^2_{min} = \left| V^+ \right|^2 \left( 1+ \left| \Gamma_0 \right|^2 - 2 \left| \Gamma_0 \right| \right) = \left| V^+ \right|^2 \left( 1 - \left| \Gamma_0 \right|^2 \right)
+\end{align*}
+Assim obtemos:
+\begin{align*}
+  \left| V(z) \right|_{min} = \equiv V_{min} = \left| V^+ \right|(1- \left| \Gamma_0 \right|)
+\end{align*}
+\subsection{Relação da Onda Estacionária (ROE)}
+\begin{align*}
+  ROE = \frac{ \left| V(z)_{max} \right| }{ \left| V(z)_{min} \right| }= \frac{ \left| V^+ \right| \left( 1 + \left| \Gamma_0 \right| \right) }{ \left| V^+ \right| \left( 1- \left| \Gamma_0 \right| \right) } = \frac{ \left( 1+ \left| \Gamma_0 \right| \right) }{ \left( 1 - \left| \Gamma_0 \right| \right)}
+\end{align*}
+\begin{align*}
+  ROE = \frac{ \left| I(z)_{max} \right| }{ \left| I(z)_{min} \right|} = \frac{ \left| I^+ \right| \left( 1+ \left| \Gamma_0 \right| \right) }{ \left| I^+ \right| \left( 1- \left| \Gamma_0 \right| \right) }= \frac{ \left( 1+ \left| \Gamma_0 \right|\right) }{1 - \left| \Gamma_0 \right|}
+\end{align*}
+Se $ \left| \Gamma_0 \right|=0$ temos $ROE=1$, o que significa um casamento de impedância. Caso $ \left| \Gamma_0 =1 \right|$ temos $ROE \to \infty$ o que significa reflexão total. E sempre temos $ROE \geq 1$.
 \end{document}
